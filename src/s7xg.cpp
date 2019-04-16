@@ -147,6 +147,11 @@ bool S7XG_Class::gpsSetMode(uint8_t mode)
     return _sendAndWaitForAck(_gpsModeArr[mode], DEFALUT_ACK, DEFALUT_TIMEOUT);
 }
 
+bool S7XG_Class::gpsStop()
+{
+    return gpsSetMode(GPS_MODE_IDEL);
+}
+
 GPS_Class S7XG_Class::gpsGetData(uint8_t type)
 {
     int year, month, day, hour, minute, second;
@@ -279,6 +284,7 @@ String S7XG_Class::getVersion()
 {
     if (_sendAndWaitForAck("sip get_ver", DEFALUT_ACK, DEFALUT_TIMEOUT, true)) {
         const char *ver =  _port->readString().c_str();
+        S7XG_DEBUG("%s\n", ver);
         sscanf(ver, "%*[^ ] %s", _buffer);
         return String(_buffer);
     }
@@ -289,16 +295,12 @@ String S7XG_Class::getHardWareModel()
 {
     if (_sendAndWaitForAck("sip get_hw_model", DEFALUT_ACK, DEFALUT_TIMEOUT, true)) {
         const char *model =  _port->readString().c_str();
+        S7XG_DEBUG("%s\n", model);
         sscanf(model, "%*[^ ] %s", _buffer);
         return String(_buffer);
     }
     return String();
 }
-
-
-
-
-
 
 #if 0
 if (0 == strncmp(POSITIONING_DONE, r.c_str(), strlen(POSITIONING_DONE)))

@@ -170,6 +170,7 @@ public:
     bool gpsSetPortUplink(uint8_t port);
     bool gpsSetFormatUplink(uint8_t format);
     bool gpsSetMode(uint8_t mode);
+    bool gpsStop();
     GPS_Class gpsGetData(uint8_t mode = GPS_DATA_TYPE_DD);
 
 
