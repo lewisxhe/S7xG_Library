@@ -1,4 +1,4 @@
-#pragma onec
+#pragma once
 
 #include <Arduino.h>
 
@@ -55,8 +55,8 @@
 
 #define S7XG_DEBUGW(x) Serial.write( x )
 
-#ifndef S7XG_DEBUG
-#define S7XG_DEBUG(...)
+#ifndef S7XG_DEBUGW
+#define S7XG_DEBUGW(...)
 #endif
 
 
@@ -69,7 +69,7 @@ enum {
 enum {
     GPS_MODE_AUTO,
     GPS_MODE_MANUAL,
-    GPS_MODE_IDEL
+    GPS_MODE_IDLE
 };
 
 enum {
@@ -80,8 +80,8 @@ enum {
 };
 
 enum {
-    GPS_STAE_SYS_GPS,
-    GPS_STAE_SYS_GPS_GLONSS
+    GPS_STATE_SYS_GPS,
+    GPS_STATE_SYS_GPS_GLONASS
 };
 
 class GPS_Class
@@ -180,6 +180,18 @@ public:
     bool loraPingPongSenderStop();
     void loraPingPongStop();
     String loraGetPingPongMessage();
+    bool loraSetFrequency(uint32_t freq);
+    bool loraSetPower(uint8_t dbm);
+    bool loraSetSpreadingFactor(uint8_t sf);
+    bool loraSetBandWidth(uint16_t bw);
+    bool loraSetCodingRate(uint8_t cr);
+    bool loraSetPreambleLength(uint16_t pl);
+    bool loraSetCRC(bool en);
+    bool loraSetIQInvert(bool en);
+    bool loraSetSyncWord(uint8_t sw);
+    bool loraSetFreqDeviation(uint16_t dev);
+    bool loraTransmit(char *hex_data);
+    bool loraReceiveContinuous(bool en);
 
     String getVersion();
     String getHardWareModel();
